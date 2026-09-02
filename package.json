@@ -2,9 +2,13 @@
   "name": "sangkidal-works-store",
   "private": true,
   "scripts": {
-    "build": "node -e \"const fs=require('fs');const html=fs.readFileSync('index.html','utf8');const start=html.indexOf('<script>');const end=html.lastIndexOf('</script>');if(start<0||end<0||end<=start)throw new Error('Inline script tidak ditemukan');const js=html.slice(start+8,end);new Function(js);console.log('Build check OK');\""
+    "dev": "vite",
+    "build": "node -e \"const fs=require('fs');const js=fs.readFileSync('app.js','utf8');new Function(js);console.log('Build check OK');\""
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.112.4"
+  },
+  "devDependencies": {
+    "vite": "^8.2.2"
   }
 }
