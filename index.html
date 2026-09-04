@@ -42,13 +42,13 @@
 <button class="chip" onclick="filter('custom',this)">Bisa Custom</button>
 <button class="chip" onclick="openFilterSheet()">Filter</button>
 </div>
-<div class="segmentrow" id="segmentFilters" aria-label="Filter segmen produk">
-<button class="segmentChip active" onclick="filterSegment('all',this)">Semua</button>
-<button class="segmentChip" onclick="filterSegment('Ekonomis',this)">Ekonomis</button>
-<button class="segmentChip" onclick="filterSegment('Umum',this)">Umum</button>
-<button class="segmentChip" onclick="filterSegment('Menengah',this)">Menengah</button>
-<button class="segmentChip" onclick="filterSegment('Menengah Atas',this)">Menengah Atas</button>
-<button class="segmentChip" onclick="filterSegment('Premium / Custom',this)">Premium / Custom</button>
+<div class="segmentrow" id="rateFilters" aria-label="Filter rate price">
+<button class="segmentChip active" onclick="filterPriceRate('all',this)">Semua</button>
+<button class="segmentChip" onclick="filterPriceRate('Ekonomis',this)">Ekonomis</button>
+<button class="segmentChip" onclick="filterPriceRate('Favorit',this)">Favorit</button>
+<button class="segmentChip" onclick="filterPriceRate('Menengah',this)">Menengah</button>
+<button class="segmentChip" onclick="filterPriceRate('Menengah Atas',this)">Menengah Atas</button>
+<button class="segmentChip" onclick="filterPriceRate('Premium / Custom',this)">Premium / Custom</button>
 </div>
 </header>
 
@@ -62,6 +62,15 @@
 </div>
 
 <div class="heading"><h1 id="storeTitle">Sangkidal Works Store</h1><p id="storeSubtitle">Biar nggak bingung, harga kami tampilkan dari awal. Pilih wardrobe, lemari, atau custom furniture yang paling cocok untuk ruangmu.</p></div>
+<details class="rateGuide">
+  <summary>Info Rate Price <span>＋</span></summary>
+  <div class="rateGuideBody">
+    <h2>Panduan Rate Price</h2>
+    <p>Rate price membantu Anda memahami posisi harga produk berdasarkan desain, material, finishing, detail, dan tingkat pengerjaan.</p>
+    <div class="rateGuideList" id="rateGuideList"></div>
+    <small>Semua produk Sangkidal Works tetap dibuat dengan standar konstruksi yang layak. Perbedaan kelas didasarkan pada kompleksitas, material, finishing, hardware, dan tingkat customisasi.</small>
+  </div>
+</details>
 <main class="grid" id="productGrid"></main>
 <div style="margin:0 12px 95px;background:#fff;border:1px solid #e8ecef;border-radius:14px;padding:16px">
   <div id="repeatTitle" style="font-size:16px;font-weight:900;margin-bottom:6px">Sudah pernah pesan di Sangkidal? 👋</div>
@@ -77,6 +86,7 @@
 <div class="gallery"><div class="galleryMedia"><img id="heroImg" class="heroimg"><span class="mediaWatermark">SANGKIDAL</span></div><div class="dots" id="galleryDots"><span class="dot active"></span></div></div>
 <div class="block">
 <div class="dprice" id="detailPrice"></div><div class="dold" id="detailOld"></div><span class="dpromo" id="detailDisc"></span>
+<div class="rateInfo detailRate" id="detailRate"></div>
 <div class="dtitle" id="detailTitle"></div><div class="sales"><span class="star">★</span> <span class="rating" id="detailRating"></span> &nbsp;•&nbsp; <span id="detailSold"></span></div>
 <div class="flash"><span>Promo workshop</span><span id="flashText"></span></div>
 </div>
@@ -135,10 +145,11 @@
       <div class="adminGrid two">
         <div class="adminField"><label>Kode Produk</label><input id="adminKey" placeholder="contoh: wardrobe_baru"></div>
         <div class="adminField"><label>Status</label><select id="adminStatus"><option>READY STOCK</option><option>PRE-ORDER</option></select></div>
-        <div class="adminField"><label>Segmen Produk</label><select id="adminSegment"><option>Ekonomis</option><option>Umum</option><option>Menengah</option><option>Menengah Atas</option><option>Premium / Custom</option></select></div>
+        <div class="adminField"><label>Rate Price</label><select id="adminRateMode" onchange="updateAdminRatePreview()"><option value="auto">Otomatis dari harga</option><option value="manual">Manual override</option></select></div>
+        <div class="adminField"><label>Pilihan Rate Manual</label><select id="adminManualRate" onchange="updateAdminRatePreview()"><option>Ekonomis</option><option>Favorit</option><option>Menengah</option><option>Menengah Atas</option><option>Premium / Custom</option></select><div class="adminRatePreview" id="adminRatePreview"></div></div>
         <div class="adminField"><label>Nama Produk</label><input id="adminTitle"></div>
         <div class="adminField"><label>Tipe/Filter</label><input id="adminType" placeholder="ready custom / po custom"></div>
-        <div class="adminField"><label>Harga Promo</label><input id="adminPrice" inputmode="numeric" placeholder="2.490.000" oninput="formatMoneyInput(this)"></div>
+        <div class="adminField"><label>Harga Promo</label><input id="adminPrice" inputmode="numeric" placeholder="2.490.000" oninput="formatMoneyInput(this);updateAdminRatePreview()"></div>
         <div class="adminField"><label>Harga Normal</label><input id="adminOld" inputmode="numeric" placeholder="3.190.000" oninput="formatMoneyInput(this)"></div>
         <div class="adminField"><label>Stok</label><input id="adminStock" type="number" min="0"></div>
         <div class="adminField"><label>Rating</label><input id="adminRating" placeholder="4.9 (5 ulasan)"></div>
