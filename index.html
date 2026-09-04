@@ -42,6 +42,14 @@
 <button class="chip" onclick="filter('custom',this)">Bisa Custom</button>
 <button class="chip" onclick="openFilterSheet()">Filter</button>
 </div>
+<div class="segmentrow" id="segmentFilters" aria-label="Filter segmen produk">
+<button class="segmentChip active" onclick="filterSegment('all',this)">Semua</button>
+<button class="segmentChip" onclick="filterSegment('Ekonomis',this)">Ekonomis</button>
+<button class="segmentChip" onclick="filterSegment('Umum',this)">Umum</button>
+<button class="segmentChip" onclick="filterSegment('Menengah',this)">Menengah</button>
+<button class="segmentChip" onclick="filterSegment('Menengah Atas',this)">Menengah Atas</button>
+<button class="segmentChip" onclick="filterSegment('Premium / Custom',this)">Premium / Custom</button>
+</div>
 </header>
 
 <div class="eventBanner" id="eventBanner">
@@ -127,6 +135,7 @@
       <div class="adminGrid two">
         <div class="adminField"><label>Kode Produk</label><input id="adminKey" placeholder="contoh: wardrobe_baru"></div>
         <div class="adminField"><label>Status</label><select id="adminStatus"><option>READY STOCK</option><option>PRE-ORDER</option></select></div>
+        <div class="adminField"><label>Segmen Produk</label><select id="adminSegment"><option>Ekonomis</option><option>Umum</option><option>Menengah</option><option>Menengah Atas</option><option>Premium / Custom</option></select></div>
         <div class="adminField"><label>Nama Produk</label><input id="adminTitle"></div>
         <div class="adminField"><label>Tipe/Filter</label><input id="adminType" placeholder="ready custom / po custom"></div>
         <div class="adminField"><label>Harga Promo</label><input id="adminPrice" inputmode="numeric" placeholder="2.490.000" oninput="formatMoneyInput(this)"></div>

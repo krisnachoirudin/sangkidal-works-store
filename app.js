@@ -4,6 +4,14 @@ const SUPABASE_ANON_KEY='sb_publishable_WyXfTedEJbMifVW-l-TvSg_IRaQKuuv';
 const SUPABASE_PRODUCT_TABLE='sangkidal_products';
 const SUPABASE_SETTINGS_TABLE='sangkidal_settings';
 const SUPABASE_IMAGE_BUCKET='sangkidal-product-images';
+const PRODUCT_SEGMENTS=['Ekonomis','Umum','Menengah','Menengah Atas','Premium / Custom'];
+const SEGMENT_STYLES={
+  'Ekonomis':'segment-economy',
+  'Umum':'segment-general',
+  'Menengah':'segment-middle',
+  'Menengah Atas':'segment-upper',
+  'Premium / Custom':'segment-premium'
+};
 const supabaseClient=(window.supabase&&SUPABASE_URL.startsWith('http'))?window.supabase.createClient(SUPABASE_URL,SUPABASE_ANON_KEY):null;
 const DEFAULT_STORE_SETTINGS={
   wa:'6285806183305',
@@ -19,11 +27,11 @@ let storeSettings=loadAdminSettings();
 let WA=normalizeWaNumber(storeSettings.wa);
 
 let products={
-metal:{title:'Metal Wardrobe 01 — Lemari Besi 2 Pintu Perforated',price:1700000,old:2190000,img:'assets/product-1.jpg',type:'ready',rating:'4.9 (18 ulasan)',sold:'23 terjual',time:'Siap dikirim 1–3 hari',status:'READY STOCK',stock:8,size:'80 × 45 × 175 cm',system:'Ready Stock',variants:['Navy × Red','Full Black','Grey × Orange'],desc:'Lemari compact yang kita produksi partai supaya harganya tetap ringan. Harga promo ini berlaku untuk ukuran dan konfigurasi yang tampil. Kalau kamu masih ragu soal ukuran atau warna, chat kami dulu ya kak—biar kami bantu pilih yang paling aman.'},
-console:{title:'Low Cabinet 01 — Kabinet Compact',price:1490000,old:1890000,img:'assets/product-2.jpg',type:'ready',rating:'4.8 (12 ulasan)',sold:'17 terjual',time:'Siap dikirim 1–3 hari',status:'READY STOCK',stock:5,size:'120 × 40 × 70 cm',system:'Ready Stock',variants:['Grey × Orange','Full Grey'],desc:'Kabinet rendah untuk ruang kerja, kamar, atau area TV. Produk batch dengan ukuran standar dan harga tetap. Kalau cocok, tinggal pesan. Kalau belum yakin, kami bantu cek dulu kebutuhan ruangnya.'},
-tall:{title:'Daily Wardrobe 02 — Lemari 2 Pintu Minimalis',price:1990000,old:2490000,img:'assets/product-3.jpg',type:'ready',rating:'4.9 (9 ulasan)',sold:'14 terjual',time:'Siap dikirim 2–4 hari',status:'READY STOCK',stock:6,size:'90 × 50 × 190 cm',system:'Ready Stock',variants:['Warm White','Greige','Soft Grey'],desc:'Model minimalis yang aman masuk ke banyak interior. Harga ini untuk ukuran standar yang ditampilkan. Kalau kamu bingung pilih warna, kami bisa bantu rekomendasikan yang paling aman untuk ruanganmu.'},
-walkin:{title:'Walk-in Wardrobe 01 — Full Custom Configuration',price:12900000,old:15900000,img:'assets/product-4.jpg',type:'po custom',rating:'5.0 (7 ulasan)',sold:'12 project selesai',time:'Pre-order ±21–30 hari kerja',status:'PRE-ORDER',stock:99,size:'Konfigurasi contoh ± 300 × 220 cm',system:'Pre-order',variants:['Konfigurasi Foto','Custom Warna','Custom Material'],desc:'Harga yang tampil adalah harga FIX untuk konfigurasi contoh dengan ukuran yang dicantumkan. Kalau ukuran ruang atau komposisi modul berubah, kita hitung harga baru sebelum produksi. Jadi kamu tetap tahu angkanya dulu sebelum lanjut.'},
-open:{title:'Open Wardrobe 01 — Open Storage System',price:7900000,old:9500000,img:'assets/product-5.jpg',type:'po custom',rating:'4.9 (5 ulasan)',sold:'8 project selesai',time:'Pre-order ±14–25 hari kerja',status:'PRE-ORDER',stock:99,size:'Konfigurasi contoh ± 240 × 60 × 240 cm',system:'Pre-order',variants:['Konfigurasi Foto','Custom Ukuran','Custom Warna'],desc:'Harga yang tampil adalah harga FIX untuk konfigurasi contoh. Kalau ukuran atau jumlah modul berubah, kita sesuaikan dulu sebelum order dikunci. Biar nggak ada kejutan biaya di belakang.'}
+ metal:{title:'Metal Wardrobe 01 — Lemari Besi 2 Pintu Perforated',price:1700000,old:2190000,img:'assets/product-1.jpg',segment:'Ekonomis',type:'ready',rating:'4.9 (18 ulasan)',sold:'23 terjual',time:'Siap dikirim 1–3 hari',status:'READY STOCK',stock:8,size:'80 × 45 × 175 cm',system:'Ready Stock',variants:['Navy × Red','Full Black','Grey × Orange'],desc:'Lemari compact yang kita produksi partai supaya harganya tetap ringan. Harga promo ini berlaku untuk ukuran dan konfigurasi yang tampil. Kalau kamu masih ragu soal ukuran atau warna, chat kami dulu ya kak—biar kami bantu pilih yang paling aman.'},
+ console:{title:'Low Cabinet 01 — Kabinet Compact',price:1490000,old:1890000,img:'assets/product-2.jpg',segment:'Umum',type:'ready',rating:'4.8 (12 ulasan)',sold:'17 terjual',time:'Siap dikirim 1–3 hari',status:'READY STOCK',stock:5,size:'120 × 40 × 70 cm',system:'Ready Stock',variants:['Grey × Orange','Full Grey'],desc:'Kabinet rendah untuk ruang kerja, kamar, atau area TV. Produk batch dengan ukuran standar dan harga tetap. Kalau cocok, tinggal pesan. Kalau belum yakin, kami bantu cek dulu kebutuhan ruangnya.'},
+ tall:{title:'Daily Wardrobe 02 — Lemari 2 Pintu Minimalis',price:1990000,old:2490000,img:'assets/product-3.jpg',segment:'Menengah',type:'ready',rating:'4.9 (9 ulasan)',sold:'14 terjual',time:'Siap dikirim 2–4 hari',status:'READY STOCK',stock:6,size:'90 × 50 × 190 cm',system:'Ready Stock',variants:['Warm White','Greige','Soft Grey'],desc:'Model minimalis yang aman masuk ke banyak interior. Harga ini untuk ukuran standar yang ditampilkan. Kalau kamu bingung pilih warna, kami bisa bantu rekomendasikan yang paling aman untuk ruanganmu.'},
+ walkin:{title:'Walk-in Wardrobe 01 — Full Custom Configuration',price:12900000,old:15900000,img:'assets/product-4.jpg',segment:'Premium / Custom',type:'po custom',rating:'5.0 (7 ulasan)',sold:'12 project selesai',time:'Pre-order ±21–30 hari kerja',status:'PRE-ORDER',stock:99,size:'Konfigurasi contoh ± 300 × 220 cm',system:'Pre-order',variants:['Konfigurasi Foto','Custom Warna','Custom Material'],desc:'Harga yang tampil adalah harga FIX untuk konfigurasi contoh dengan ukuran yang dicantumkan. Kalau ukuran ruang atau komposisi modul berubah, kita hitung harga baru sebelum produksi. Jadi kamu tetap tahu angkanya dulu sebelum lanjut.'},
+ open:{title:'Open Wardrobe 01 — Open Storage System',price:7900000,old:9500000,img:'assets/product-5.jpg',segment:'Menengah Atas',type:'po custom',rating:'4.9 (5 ulasan)',sold:'8 project selesai',time:'Pre-order ±14–25 hari kerja',status:'PRE-ORDER',stock:99,size:'Konfigurasi contoh ± 240 × 60 × 240 cm',system:'Pre-order',variants:['Konfigurasi Foto','Custom Ukuran','Custom Warna'],desc:'Harga yang tampil adalah harga FIX untuk konfigurasi contoh. Kalau ukuran atau jumlah modul berubah, kita sesuaikan dulu sebelum order dikunci. Biar nggak ada kejutan biaya di belakang.'}
 };
 
 const DEFAULT_PRODUCTS=JSON.parse(JSON.stringify(products));
@@ -35,6 +43,7 @@ let wishlist = JSON.parse(localStorage.getItem('sangkidalWishlist') || '[]');
 let adminSelectedKey=currentKey;
 let adminUser=null;
 let adminUploadPromise=null;
+let activeTypeFilter='all',activeSegmentFilter='all',advancedTypeFilters=null;
 
 function loadAdminSettings(){
  return {...DEFAULT_STORE_SETTINGS,promo:{...DEFAULT_STORE_SETTINGS.promo}};
@@ -52,7 +61,10 @@ async function loadSupabaseData(){
  if(settingError){toast('Pengaturan Supabase belum bisa dibaca');console.error(settingError);}
  if(productRows&&productRows.length){
   products={};
-  productRows.forEach(row=>{products[row.key]=safeProduct(row.data||{});});
+  productRows.forEach(row=>{
+   const data=row.data||{};
+   products[row.key]=safeProduct({...data,segment:data.segment||DEFAULT_PRODUCTS[row.key]?.segment||'Umum'});
+  });
   currentKey=products[currentKey]?currentKey:Object.keys(products)[0];
   adminSelectedKey=products[adminSelectedKey]?adminSelectedKey:currentKey;
   renderCards();
@@ -87,7 +99,8 @@ function applyStoreSettings(){
 }
 function safeProduct(p){
  const images=Array.isArray(p.images)&&p.images.length?p.images.filter(Boolean):(p.img?[p.img]:[]);
- return {...p,img:p.img||images[0]||'',images,price:Number(p.price)||0,old:Number(p.old)||Number(p.price)||0,stock:Number(p.stock)||0,variants:Array.isArray(p.variants)&&p.variants.length?p.variants:['Default']};
+ const segment=PRODUCT_SEGMENTS.includes(p.segment)?p.segment:'Umum';
+ return {...p,segment,img:p.img||images[0]||'',images,price:Number(p.price)||0,old:Number(p.old)||Number(p.price)||0,stock:Number(p.stock)||0,variants:Array.isArray(p.variants)&&p.variants.length?p.variants:['Default']};
 }
 
 function saveCart(){ localStorage.setItem('sangkidalCart', JSON.stringify(cart)); updateCartBadge(); }
@@ -166,17 +179,15 @@ function shareCurrent(){
 function openFilterSheet(){document.getElementById('filterSheet').classList.add('show')}
 function applyAdvancedFilter(){
  const ready=document.getElementById('fReady').checked, pre=document.getElementById('fPre').checked, custom=document.getElementById('fCustom').checked;
- document.querySelectorAll('#productGrid .card').forEach(c=>{
-  const t=c.dataset.type; const noChoice=!ready&&!pre&&!custom;
-  c.style.display=(noChoice||(ready&&t.includes('ready'))||(pre&&t.includes('po'))||(custom&&t.includes('custom')))?'block':'none';
- });
+  advancedTypeFilters=(!ready&&!pre&&!custom)?null:{ready,pre,custom};
+  applyProductFilters();
  document.getElementById('filterSheet').classList.remove('show'); toast('Sip, pilihannya sudah kami rapikan 😊');
 }
 function setTopTab(mode,el){
  document.querySelectorAll('.tabs button').forEach(b=>b.classList.remove('active')); el.classList.add('active');
  const grid=document.getElementById('productGrid');
- if(mode==='custom'){ document.querySelectorAll('#productGrid .card').forEach(c=>c.style.display=c.dataset.type.includes('custom')?'block':'none'); return; }
- document.querySelectorAll('#productGrid .card').forEach(c=>c.style.display='block');
+ activeTypeFilter=mode==='custom'?'custom':'all';
+ advancedTypeFilters=null;
  const entries=Object.entries(products);
  let keys=entries.map(([k])=>k);
  if(mode==='popular') keys.sort((a,b)=>parseInt(products[b].sold)-parseInt(products[a].sold));
@@ -184,6 +195,7 @@ function setTopTab(mode,el){
  if(mode==='price') keys.sort((a,b)=>products[a].price-products[b].price);
  if(mode==='related') keys=Object.keys(products);
  keys.forEach(k=>{const c=grid.querySelector(`[data-key="${k}"]`); if(c) grid.appendChild(c);});
+ applyProductFilters();
 }
 
 function rupiah(n){return 'Rp'+(Number(n)||0).toLocaleString('id-ID')}
@@ -222,15 +234,16 @@ function renderCards(){
  const grid=document.getElementById('productGrid');grid.innerHTML='';
  Object.entries(products).forEach(([k,p])=>{
   p=safeProduct(p);
-  const card=document.createElement('article');card.className='card';card.dataset.type=p.type;card.dataset.key=k;card.dataset.search=(p.title+' '+p.status+' '+p.system).toLowerCase();card.style.cursor='pointer';card.onclick=()=>openProduct(k);
-  card.innerHTML=`<div class="thumb"><img src="${safeSrc(p.img)}" alt="${escapeHTML(p.title)}" loading="lazy" decoding="async"><span class="storetag">SANGKIDAL</span><span class="mediaWatermark">SANGKIDAL</span><span class="status ${p.status==='READY STOCK'?'ready':'po'}">${p.status==='READY STOCK'?'READY':'PRE-ORDER'}</span></div>
+   const card=document.createElement('article');card.className='card';card.dataset.type=p.type;card.dataset.segment=p.segment;card.dataset.key=k;card.dataset.search=(p.title+' '+p.status+' '+p.system+' '+p.segment).toLowerCase();card.style.cursor='pointer';card.onclick=()=>openProduct(k);
+   card.innerHTML=`<div class="thumb"><img src="${safeSrc(p.img)}" alt="${escapeHTML(p.title)}" loading="lazy" decoding="async"><span class="storetag">SANGKIDAL</span><span class="mediaWatermark">SANGKIDAL</span><span class="segmentBadge ${SEGMENT_STYLES[p.segment]}">${escapeHTML(p.segment)}</span><span class="status ${p.status==='READY STOCK'?'ready':'po'}">${p.status==='READY STOCK'?'READY':'PRE-ORDER'}</span></div>
   <div class="cbody"><div class="seller">${p.status==='READY STOCK'?'Sangkidal Works':'Sangkidal Custom'}</div><div class="ctitle">${escapeHTML(p.title)}</div>
   <div class="price">${rupiah(p.price)}</div><div class="discountline"><span class="oldprice">${rupiah(p.old)}</span><span class="disc">${discPct(p)}% OFF</span></div>
   <div class="mini">${p.status==='READY STOCK'?'Stok '+p.stock:'Harga fix konfigurasi foto'}</div><div class="stars"><span class="s">★</span> ${escapeHTML(String(p.rating).split(' ')[0])} • ${escapeHTML(p.sold)}</div>
   <span class="${p.status==='READY STOCK'?'free':'poLabel'}">${p.status==='READY STOCK'?'Siap dikirim':escapeHTML(p.time)}</span>
   <button class="main" onclick="event.stopPropagation();openProduct('${k}')">Lihat detail</button></div>`;
   grid.appendChild(card);
- });
+  });
+  applyProductFilters();
 }
 renderCards();
 
@@ -346,9 +359,21 @@ function checkoutWA(){const p=safeProduct(products[currentKey]);openWA(`Halo San
 document.getElementById('checkout').onclick=e=>{if(e.target.id==='checkout')e.currentTarget.classList.remove('show')}
 document.getElementById('imageLightbox').addEventListener('click',e=>{if(e.target.id==='imageLightbox') closeImageDetail();});
 document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeImageDetail();} if(e.key==='ArrowRight'){moveGalleryImage(1);} if(e.key==='ArrowLeft'){moveGalleryImage(-1);}});
-function filter(t,el){document.querySelectorAll('.chip').forEach(x=>x.classList.remove('active'));el.classList.add('active');document.querySelectorAll('#productGrid .card').forEach(c=>c.style.display=(t==='all'||c.dataset.type.includes(t))?'block':'none')}
-function filterMobile(t){document.querySelectorAll('#productGrid .card').forEach(c=>c.style.display=c.dataset.type.includes(t)?'block':'none');window.scrollTo({top:110,behavior:'smooth'})}
-function doSearch(){const q=document.getElementById('search').value.toLowerCase();document.querySelectorAll('#productGrid .card').forEach(c=>c.style.display=(!q||c.dataset.search.includes(q))?'block':'none')}
+function applyProductFilters(){
+ const q=(document.getElementById('search')?.value||'').trim().toLowerCase();
+ document.querySelectorAll('#productGrid .card').forEach(c=>{
+  const type=c.dataset.type||'';
+  const simpleTypeMatch=activeTypeFilter==='all'||type.includes(activeTypeFilter);
+  const advancedTypeMatch=!advancedTypeFilters||(advancedTypeFilters.ready&&type.includes('ready'))||(advancedTypeFilters.pre&&type.includes('po'))||(advancedTypeFilters.custom&&type.includes('custom'));
+  const segmentMatch=activeSegmentFilter==='all'||c.dataset.segment===activeSegmentFilter;
+  const searchMatch=!q||c.dataset.search.includes(q);
+  c.style.display=simpleTypeMatch&&advancedTypeMatch&&segmentMatch&&searchMatch?'block':'none';
+ });
+}
+function filter(t,el){activeTypeFilter=t;advancedTypeFilters=null;document.querySelectorAll('.sortrow .chip').forEach(x=>x.classList.remove('active'));el.classList.add('active');applyProductFilters()}
+function filterSegment(segment,el){activeSegmentFilter=segment;document.querySelectorAll('.segmentChip').forEach(x=>x.classList.remove('active'));el.classList.add('active');applyProductFilters()}
+function filterMobile(t){activeTypeFilter=t;advancedTypeFilters=null;applyProductFilters();window.scrollTo({top:110,behavior:'smooth'})}
+function doSearch(){applyProductFilters()}
 function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.style.display='block';setTimeout(()=>t.style.display='none',1800)}
 
 function adminIsLoggedIn(){return !!adminUser}
@@ -410,7 +435,7 @@ function fillAdminProductForm(key){
  const p=safeProduct(products[key]||{title:'',price:0,old:0,img:'',type:'ready',rating:'4.9 (0 ulasan)',sold:'0 terjual',time:'Ready',status:'READY STOCK',stock:1,size:'',system:'Ready stock',variants:['Default'],desc:''});
  const set=(id,val)=>{const el=document.getElementById(id); if(el) el.value=val??'';};
  set('adminKey',key||'');
- set('adminTitle',p.title); set('adminStatus',p.status); set('adminType',p.type);
+  set('adminTitle',p.title); set('adminStatus',p.status); set('adminSegment',p.segment); set('adminType',p.type);
  set('adminPrice',formatMoneyValue(p.price)); set('adminOld',formatMoneyValue(p.old)); set('adminStock',p.stock);
  set('adminRating',p.rating); set('adminSold',p.sold); set('adminTime',p.time);
  set('adminSystem',p.system); set('adminSize',p.size); set('adminVariants',p.variants.join(', '));
@@ -429,7 +454,7 @@ function productFromAdminForm(){
  const val=id=>document.getElementById(id).value.trim();
  const images=val('adminImg').split(/\n|,/).map(x=>x.trim()).filter(Boolean);
  return safeProduct({
-  title:val('adminTitle'),status:val('adminStatus'),type:val('adminType')||'ready',
+   title:val('adminTitle'),status:val('adminStatus'),segment:val('adminSegment')||'Umum',type:val('adminType')||'ready',
   price:parseMoney(val('adminPrice')),old:parseMoney(val('adminOld'))||parseMoney(val('adminPrice')),stock:Number(val('adminStock'))||0,
   rating:val('adminRating')||'4.9 (0 ulasan)',sold:val('adminSold')||'0 terjual',time:val('adminTime')||'Ready',
   system:val('adminSystem')||val('adminStatus'),size:val('adminSize'),variants:val('adminVariants').split(',').map(x=>x.trim()).filter(Boolean),
@@ -630,7 +655,7 @@ async function saveAdminProduct(){
 }
 async function newAdminProduct(){
  const key='produk_'+Date.now();
- products[key]={title:'Produk Baru',price:0,old:0,img:'',type:'ready',rating:'4.9 (0 ulasan)',sold:'0 terjual',time:'Ready stock',status:'READY STOCK',stock:1,size:'',system:'Ready stock',variants:['Default'],desc:''};
+ products[key]={title:'Produk Baru',price:0,old:0,img:'',segment:'Umum',type:'ready',rating:'4.9 (0 ulasan)',sold:'0 terjual',time:'Ready stock',status:'READY STOCK',stock:1,size:'',system:'Ready stock',variants:['Default'],desc:''};
  adminSelectedKey=key; await persistProducts(); renderCards(); renderAdmin();
 }
 async function duplicateAdminProduct(){

@@ -17,6 +17,10 @@ button,input,select{font:inherit}button{cursor:pointer}a{text-decoration:none;co
 .sortrow{display:flex;gap:8px;padding:10px 12px;overflow:auto;background:#fff}
 .chip{border:1px solid #dfe3e7;border-radius:9px;padding:9px 12px;background:#fff;white-space:nowrap;font-weight:650;color:#444}
 .chip.active{border-color:var(--green);color:var(--green)}
+.segmentrow{display:flex;gap:7px;padding:0 12px 10px;overflow-x:auto;background:#fff;scrollbar-width:none}
+.segmentrow::-webkit-scrollbar{display:none}
+.segmentChip{flex:0 0 auto;border:1px solid #e2e5e8;border-radius:999px;padding:7px 10px;background:#fff;color:#555;font-size:11px;font-weight:700;white-space:nowrap}
+.segmentChip.active{border-color:#2f363d;background:#2f363d;color:#fff}
 .voucher{margin:2px 12px 12px;background:#e7faf9;border-radius:10px;padding:12px;display:flex;justify-content:space-between;align-items:center;color:#14978f;font-weight:800}
 .voucher button{border:0;background:#23bcb3;color:#fff;border-radius:8px;padding:8px 14px;font-weight:800}
 .heading{padding:5px 14px 12px}.heading h1{font-size:21px;margin:0}.heading p{margin:4px 0 0;color:#888;font-size:13px}
@@ -27,6 +31,8 @@ button,input,select{font:inherit}button{cursor:pointer}a{text-decoration:none;co
 .thumb .mediaWatermark{left:8px;top:8px;padding:4px 7px;font-size:8px;letter-spacing:1px}
 .status{position:absolute;right:8px;top:8px;border-radius:5px;padding:5px 6px;font-size:9px;font-weight:900}
 .status.ready{background:#e9fbea;color:#138a20}.status.po{background:#fff0e7;color:#d8642f}
+.segmentBadge{position:absolute;left:10px;bottom:10px;max-width:calc(100% - 20px);border-radius:999px;padding:6px 10px;font-size:10px;font-weight:700;letter-spacing:.02em;line-height:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;box-shadow:0 1px 4px rgba(0,0,0,.12)}
+.segment-economy{background:#f3f4f6;color:#4b5563}.segment-general{background:#e8f5e9;color:#2e7d32}.segment-middle{background:#fff4cc;color:#8a6500}.segment-upper{background:#fce7d6;color:#a45116}.segment-premium{background:#1f2937;color:#fff}
 .cbody{padding:9px}.seller{font-size:10px;color:#838383;margin-bottom:5px;font-weight:700}.ctitle{font-size:13px;line-height:1.35;min-height:36px;overflow:hidden}
 .price{font-size:19px;font-weight:850;margin-top:7px;color:#e73355}.oldprice{font-size:11px;color:#999;text-decoration:line-through;margin-top:2px}
 .discountline{display:flex;align-items:center;gap:6px;margin-top:3px}.disc{font-size:9px;background:#ffebef;color:#e23353;padding:3px 5px;border-radius:4px;font-weight:850}
