@@ -1,6 +1,5 @@
 
-const SUPABASE_URL='https://kaqxywhjukhtggmwzfha.supabase.co';
-const SUPABASE_ANON_KEY='sb_publishable_WyXfTedEJbMifVW-l-TvSg_IRaQKuuv';
+const {supabaseUrl:SUPABASE_URL='',supabaseAnonKey:SUPABASE_ANON_KEY=''}=window.SANGKIDAL_CONFIG||{};
 const SUPABASE_PRODUCT_TABLE='sangkidal_products';
 const SUPABASE_SETTINGS_TABLE='sangkidal_settings';
 const SUPABASE_IMAGE_BUCKET='sangkidal-product-images';
@@ -35,7 +34,7 @@ const PRICE_RATE_INFO={
   'Premium / Custom':{description:'Cocok untuk kebutuhan premium & custom',guide:'Untuk kebutuhan khusus dengan tingkat detail, finishing, dan customisasi yang lebih tinggi.',className:'rate-premium'}
 };
 const PRICE_RATES=Object.keys(PRICE_RATE_INFO);
-const supabaseClient=(window.supabase&&SUPABASE_URL.startsWith('http'))?window.supabase.createClient(SUPABASE_URL,SUPABASE_ANON_KEY):null;
+const supabaseClient=(window.supabase&&SUPABASE_URL.startsWith('https://')&&SUPABASE_ANON_KEY)?window.supabase.createClient(SUPABASE_URL,SUPABASE_ANON_KEY):null;
 const DEFAULT_STORE_SETTINGS={
   wa:'6285806183305',
   title:'Sangkidal Works Store',
